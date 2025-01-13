@@ -682,3 +682,54 @@
     opacity: 0.9;
     transform: translateY(-1px);
 } 
+
+/* Add these styles for the login required message */
+.login-required {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+.login-required i {
+    font-size: 3rem;
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+}
+
+.login-required h2 {
+    font-size: 1.8rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.login-required p {
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+}
+
+.login-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-purple);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.login-button i {
+    font-size: 1rem;
+    color: white;
+    margin: 0;
+} 
