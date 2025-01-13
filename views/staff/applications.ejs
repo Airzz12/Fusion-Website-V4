@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+   
+    <title>Staff Applications | Fusion Network</title>
+    <meta name="title" content="Staff Applications | Fusion Network">
+    <meta name="description" content="Join our team at Fusion Network! Apply for staff positions and help make our Minecraft community even better.">
+
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/staff/applications">
+    <meta property="og:title" content="Staff Applications | Fusion Network">
+    <meta property="og:description" content="Join our team at Fusion Network! Apply for staff positions and help make our Minecraft community even better.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/staff/applications">
+    <meta property="twitter:title" content="Staff Applications | Fusion Network">
+    <meta property="twitter:description" content="Join our team at Fusion Network! Apply for staff positions and help make our Minecraft community even better.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/staff.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-user-shield"></i> Staff Applications</h1>
+        </div>
+        
+        <div class="applications-grid">
+            <% applications.forEach(app => { %>
+                <div class="application-card">
+                    <div class="app-header">
+                        <img src="https://mc-heads.net/avatar/<%= app.minecraft_username %>" alt="<%= app.username %>" class="mc-avatar">
+                        <div class="app-info">
+                            <h3><%= app.username %></h3>
+                            <span class="timestamp"><%= new Date(app.created_at).toLocaleString() %></span>
+                        </div>
+                        <span class="status-badge <%= app.status %>"><%= app.status %></span>
+                    </div>
+                    <button onclick="viewApplication(<%= app.id %>)" class="view-btn">
+                        <i class="fas fa-eye"></i> View Application
+                    </button>
+                    <div class="app-actions">
+                        <button onclick="handleApplication(<%= app.id %>, 'accept')" class="action-btn accept">
+                            <i class="fas fa-check"></i> Accept
+                        </button>
+                        <button onclick="handleApplication(<%= app.id %>, 'reject')" class="action-btn reject">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                        <button onclick="handleApplication(<%= app.id %>, 'reset')" class="action-btn reset">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+ 
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal">
+            <h2><i class="fas fa-file-alt"></i> Application Details</h2>
+            <div class="modal-content">
+                <div id="applicationDetails"></div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="closeApplicationModal()" class="cancel-btn">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/mobile-nav.js"></script>
+    <script src="/public/js/applications.js"></script>
+    <script>
+    async function handleApplication(id, action) {
+        try {
+            const response = await fetch(`/staff/applications/${id}/${action}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const data = await response.json();
+                alert(data.error || 'Failed to update application');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to update application');
+        }
+    }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>Our Staff Team | Fusion Network</title>
+    <meta name="title" content="Our Staff Team | Fusion Network">
+    <meta name="description" content="Meet the dedicated team behind Fusion Network. Our staff members work hard to ensure the best possible Minecraft experience for our community.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/staff/ourstaff">
+    <meta property="og:title" content="Our Staff Team | Fusion Network">
+    <meta property="og:description" content="Meet the dedicated team behind Fusion Network. Our staff members work hard to ensure the best possible Minecraft experience for our community.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+ 
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/staff/ourstaff">
+    <meta property="twitter:title" content="Our Staff Team | Fusion Network">
+    <meta property="twitter:description" content="Meet the dedicated team behind Fusion Network. Our staff members work hard to ensure the best possible Minecraft experience for our community.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/staff.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header></header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="/staff/ourstaff"class="active"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="staff-hero">
+        <div class="staff-hero-content">
+            <h1>Our Staff Team</h1>
+            <p>Meet the amazing people behind Fusion Network</p>
+        </div>
+    </section>
+
+    <div class="staff-container">
+      
+        <section class="staff-section">
+            <h2>Leadership Team</h2>
+            <div class="staff-grid">
+                <div class="staff-card founder">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/CoolAllRounder" alt="CoolAllRounder">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>CoolAllRounder</h3>
+                        <span class="role founder">[Founder]</span>
+                        <p>Server Founder</p>
+                    </div>
+                </div>
+
+                <div class="staff-card owner">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/_BeastxD" alt="Beast">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Beast</h3>
+                        <span class="role owner">[Owner]</span>
+                        <p>Server Owner</p>
+                    </div>
+                </div>
+
+                <div class="staff-card owner">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Notch/100" alt="Nova">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Nova</h3>
+                        <span class="role owner">[Owner]</span>
+                        <p>Server Owner</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ 
+        <section class="staff-section">
+            <h2>Development Team</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Spyder_xD_" alt="Laggpixel">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>MsterChief100</h3>
+                        <span class="role manager">[Developer]</span>
+                        <p>System Admin</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="Mster">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Laggpixel</h3>
+                        <span class="role manager">[Manager]</span>
+                        <p>Lead Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="n0step">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>n0step</h3>
+                        <span class="role manager">[Manager]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="Kespyy">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Kespyy</h3>
+                        <span class="role dev">[Developer]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Airzz__" alt="Kespyy">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Airzz__</h3>
+                        <span class="role dev">[Developer]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="Lished">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Lished</h3>
+                        <span class="role dev">[Developer]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="MelonOof">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>MelonOof</h3>
+                        <span class="role dev">[Developer]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Steve" alt="Milano">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Milano</h3>
+                        <span class="role dev">[Developer]</span>
+                        <p>Developer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="staff-section">
+            <h2>Administration Team</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/Ohidulx69" alt="Ohidulx">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>Ohidulx</h3>
+                        <span class="role admin">[Administrator]</span>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+  
+        <section class="staff-section">
+            <h2>Moderation Team</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="https://mc-heads.net/avatar/ATG12_" alt="ATG12">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="staff-info">
+                        <h3>ATG12</h3>
+                        <span class="role mod">[Moderator]</span>
+                        <p>Moderator</p>
+                    </div>
+                </div>
+
+
+                <% const moderators = [
+                    { name: 'KiriNaved', icon: 'KiriNaved' },
+                    { name: 'Gevion', icon: 'Gevion' },
+                    { name: 'vitry', icon: 'VitryTheMC' },
+                    { name: 'R3nzTheCaT', icon: 'R3nzTheCaT' },
+                    { name: 'Lqkyee', icon: 'lqkyee' }
+                ] %>
+
+                <% moderators.forEach(mod => { %>
+                    <div class="staff-card">
+                        <div class="staff-avatar">
+                            <img src="https://mc-heads.net/avatar/<%= mod.icon %>" alt="<%= mod.name %>">
+                            <div class="status-dot online"></div>
+                        </div>
+                        <div class="staff-info">
+                            <h3><%= mod.name %></h3>
+                            <span class="role mod">[Moderator]</span>
+                            <p>Moderator</p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+
+
+        <section class="staff-section">
+            <h2>Helper Team</h2>
+            <div class="staff-grid">
+                <% const helpers = [
+                    { name: 'Vexirisk_', icon: 'Vexirisk_' },
+                    { name: 'M0ltz', icon: 'M0ltz' },
+                    { name: 'Hatch', icon: 'StrafeCarries' },
+                    { name: 'Fuego', icon: 'Cpt_Fuego' },
+                    { name: 'Ash', icon: 'As_h_' },
+                    { name: 'IlyChampion', icon: 'IlyChampion' },
+                    { name: 'Winnowed', icon: 'Winnowed' },
+                    { name: 'DarkVoid_', icon: 'DarkVoid_' }
+                ] %>
+
+                <% helpers.forEach(helper => { %>
+                    <div class="staff-card">
+                        <div class="staff-avatar">
+                            <img src="https://mc-heads.net/avatar/<%= helper.icon %>" alt="<%= helper.name %>">
+                            <div class="status-dot online"></div>
+                        </div>
+                        <div class="staff-info">
+                            <h3><%= helper.name %></h3>
+                            <span class="role helper">[Helper]</span>
+                            <p>Helper</p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+</body>
+</html> 
