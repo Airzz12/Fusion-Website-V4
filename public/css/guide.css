@@ -1,0 +1,564 @@
+.guide-hero {
+    height: 50vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/public/images/banner.webp') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0) 0%,
+        rgba(26, 26, 26, 0.8) 80%,
+        rgba(26, 26, 26, 1) 100%
+    );
+    z-index: 1;
+}
+
+.guide-hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 0.8s ease forwards;
+    max-width: 800px;
+}
+
+.guide-hero h1 {
+    font-size: 4rem;
+    color: #FFD700;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.guide-hero p {
+    font-size: 1.2rem;
+    color: #fff;
+    opacity: 0.9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gamemodes {
+    padding: 6rem 4rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.section-header p {
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+.gamemodes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gamemode-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.gamemode-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.gamemode-banner {
+    height: 200px;
+    overflow: hidden;
+}
+
+.gamemode-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gamemode-card:hover .gamemode-banner img {
+    transform: scale(1.05);
+}
+
+.gamemode-content {
+    padding: 2rem;
+    position: relative;
+}
+
+.gamemode-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background: var(--primary-purple);
+    border-radius: 12px;
+    padding: 0.8rem;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    margin-right: 1rem;
+    vertical-align: middle;
+}
+
+.gamemode-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.gamemode-content h3 {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 1rem 0;
+    padding-left: 0;
+}
+
+.gamemode-content p {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.learn-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-purple);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.learn-more-btn:hover {
+    color: #fff;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .gamemodes {
+        padding: 4rem 2rem;
+    }
+
+    .gamemodes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-hero h1 {
+        font-size: 3rem;
+    }
+}
+
+.mode-container {
+    padding: 8rem 4rem 4rem;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mode-nav {
+    margin-bottom: 2rem;
+}
+
+.mode-article {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.mode-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.mode-header h1 {
+    font-size: 3rem;
+    color: #FFD700;
+    margin: 1rem 0;
+    font-weight: 700;
+}
+
+.mode-description {
+    color: #aaa;
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.mode-icon {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 1rem;
+    background: var(--primary-purple);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+.mode-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.mode-banner {
+    width: 100%;
+    height: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+.mode-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mode-content {
+    color: #fff;
+    line-height: 1.8;
+}
+
+.mode-content h2 {
+    color: var(--primary-purple);
+    font-size: 2rem;
+    margin: 2.5rem 0 1.5rem;
+}
+
+.mode-content p {
+    margin-bottom: 1.5rem;
+}
+
+.mode-content ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.mode-content ul li {
+    position: relative;
+    margin-bottom: 0.8rem;
+}
+
+.mode-content ul li:before {
+    content: '•';
+    color: var(--primary-purple);
+    font-weight: bold;
+    position: absolute;
+    left: -1.5rem;
+}
+
+.commands-list {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.command-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.command-item:last-child {
+    margin-bottom: 0;
+}
+
+.command-item code {
+    background: rgba(139, 92, 246, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    color: var(--primary-purple);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .mode-container {
+        padding: 6rem 2rem 2rem;
+    }
+
+    .mode-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .mode-banner {
+        height: 250px;
+    }
+}
+
+/* Add navbar styles from index.css */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo img {
+    width: 48px;
+    height: 48px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.fusion {
+    color: var(--primary-purple);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.network {
+    color: #fff;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary-purple);
+}
+
+.nav-links i {
+    font-size: 1.1rem;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0.5rem);
+}
+
+.dropdown-content a {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 4px;
+}
+
+.dropdown-content a:hover {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.cta-button {
+    background: var(--primary-purple);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+}
+
+.user-profile {
+    position: relative;
+}
+
+.user-profile .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Add responsive navbar styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 2rem;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(17, 17, 17, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .dropdown-content {
+        position: static;
+        transform: none;
+        background: transparent;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+    }
+
+    .dropdown:hover .dropdown-content {
+        transform: none;
+    }
+}
+
+/* Update the back button styling */
+.mode-nav {
+    margin-bottom: 2rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-purple);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    background: rgba(139, 92, 246, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.back-button:hover {
+    background: rgba(139, 92, 246, 0.15);
+    transform: translateX(-5px);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+}
+
+.back-button i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover i {
+    transform: translateX(-3px);
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+    .mode-nav {
+        margin: 1rem 0 2rem;
+    }
+    
+    .back-button {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+} 

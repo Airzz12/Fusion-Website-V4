@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forums | Fusion Network</title>
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/forums.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"class="active"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="forums-container">
+        <div class="forums-sidebar">
+            <div class="sidebar-section">
+                <h3>Statistics</h3>
+                <div class="stats-box">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>Total Members: <%= stats.totalMembers %></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-comments"></i>
+                        <span>Total Posts: <%= stats.totalPosts %></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-folder"></i>
+                        <span>Total Threads: <%= stats.totalThreads %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Online Users</h3>
+                <div class="online-users">
+                    <% onlineUsers.forEach(user => { %>
+                        <div class="online-user">
+                            <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" 
+                                 alt="<%= user.username %>" 
+                                 class="user-avatar">
+                            <span class="user-name <%= user.rank %>">
+                                <%= user.username %>
+                            </span>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Latest Posts</h3>
+                <div class="latest-posts">
+                    <% latestPosts.forEach(post => { %>
+                        <div class="latest-post">
+                            <div class="post-info">
+                                <a href="/forums/thread/<%= post.threadId %>"><%= post.title %></a>
+                                <span>by <%= post.author %></span>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="forums-content">
+            <div class="forums-header">
+                <h1>Forums</h1>
+                <% if (user) { %>
+                    <button onclick="showCreateForumModal()" class="create-forum-btn">
+                        <i class="fas fa-plus"></i> Create Forum
+                    </button>
+                <% } %>
+            </div>
+
+            <div class="forums-list">
+                <% categories.forEach(category => { %>
+                    <div class="forum-category">
+                        <h2><%= category.name %></h2>
+                        <% if (category.forums && category.forums.length > 0) { %>
+                            <% category.forums.forEach(forum => { %>
+                                <div class="forum-item">
+                                    <div class="forum-header">
+                                        <div class="forum-user">
+                                            <img src="<%= forum.creator_minecraft ? `https://mc-heads.net/avatar/${forum.creator_minecraft}` : 'https://mc-heads.net/avatar/Steve' %>" 
+                                                 alt="<%= forum.creator_name %>">
+                                            <div class="forum-user-info">
+                                                <span class="forum-user-name"><%= forum.creator_name || 'Unknown User' %></span>
+                                                <% if (forum.creator_rank) { %>
+                                                    <span class="rank <%= forum.creator_rank %>">[<%= forum.creator_rank.toUpperCase() %>]</span>
+                                                <% } else { %>
+                                                    <span class="rank member">[MEMBER]</span>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="forum-actions">
+                                            <% if (!forum.is_system) { %>
+                                                <% if (user) { %>
+                                                    <button onclick="showReplyModal('<%= forum.id %>')" class="action-btn">
+                                                        <i class="fas fa-reply"></i> Reply
+                                                    </button>
+                                                    <% if (user.id === forum.user_id || ['admin', 'mod'].includes(user.rank)) { %>
+                                                        <button onclick="showEditModal('<%= forum.id %>', '<%= forum.title %>', '<%= forum.description %>')" class="action-btn">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                        <button onclick="deleteForum('<%= forum.id %>')" class="action-btn delete">
+                                                            <i class="fas fa-trash"></i> Delete
+                                                        </button>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="forum-content">
+                                        <h3 class="forum-title"><%= forum.title %></h3>
+                                        <p class="forum-description"><%= forum.description %></p>
+                                    </div>
+                                    <div class="forum-replies">
+                                        <button onclick="toggleReplies(<%= forum.id %>)" class="view-replies-btn">
+                                            <i class="fas fa-comments"></i>
+                                            View Replies (<%= forum.replies ? forum.replies.length : 0 %>)
+                                        </button>
+                                        <div id="replies-<%= forum.id %>" class="replies-container" style="display: none;">
+                                            <% if (forum.replies && forum.replies.length > 0) { %>
+                                                <% forum.replies.forEach(reply => { %>
+                                                    <div class="reply-item">
+                                                        <div class="reply-user">
+                                                            <img src="<%= reply.minecraft_username ? `https://mc-heads.net/avatar/${reply.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" 
+                                                                 alt="<%= reply.username %>">
+                                                            <span class="rank <%= reply.rank %>"><%= reply.rank.toUpperCase() %></span>
+                                                            <span class="reply-username"><%= reply.username %></span>
+                                                        </div>
+                                                        <p class="reply-content"><%= reply.content %></p>
+                                                    </div>
+                                                <% }) %>
+                                            <% } else { %>
+                                                <p class="no-replies">No replies yet</p>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="no-forums">No forums in this category yet.</p>
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+   
+    <div id="createForumModal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Forum</h2>
+            <form id="create-forum-form">
+                <div class="form-group">
+                    <label for="forum-title">Title</label>
+                    <input type="text" id="forum-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="forum-description">Description</label>
+                    <textarea id="forum-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="forum-category">Category</label>
+                    <select id="forum-category" required>
+                        <option value="">Select Category</option>
+                        <% categories.forEach(category => { %>
+                            <% if ((user && user.rank === 'admin') || category.name !== 'Announcements') { %>
+                                <option value="<%= category.id %>"><%= category.name %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="forum-icon">Icon</label>
+                    <select id="forum-icon" required>
+                        <option value="fas fa-comments">💬 Comments</option>
+                        <option value="fas fa-gamepad">🎮 Gaming</option>
+                        <option value="fas fa-bullhorn">📢 Announcements</option>
+                        <option value="fas fa-question">❓ Help</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit">Create Forum</button>
+                    <button type="button" onclick="closeCreateForumModal()" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="editForumModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Forum</h2>
+            <form id="edit-forum-form">
+                <input type="hidden" id="edit-forum-id">
+                <div class="form-group">
+                    <label for="edit-forum-title">Title</label>
+                    <input type="text" id="edit-forum-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-forum-description">Description</label>
+                    <textarea id="edit-forum-description" required></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit">Save Changes</button>
+                    <button type="button" onclick="closeEditModal()" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+ 
+    <div id="replyModal" class="modal">
+        <div class="modal-content">
+            <h2>Post Reply</h2>
+            <form id="reply-form">
+                <input type="hidden" id="forum-id">
+                <div class="form-group">
+                    <label for="reply-content">Your Reply</label>
+                    <textarea id="reply-content" required></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit">Post Reply</button>
+                    <button type="button" onclick="closeReplyModal()" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/forums.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+    <script>
+    async function handleLogout(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+    </script>
+</body>
+</html>     

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Page Not Found | Fusion Network</title>
+    <meta name="title" content="Page Not Found | Fusion Network">
+    <meta name="description" content="Oops! The page you're looking for doesn't exist. Return to Fusion Network's homepage to continue exploring our Minecraft server.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/404">
+    <meta property="og:title" content="Page Not Found | Fusion Network">
+    <meta property="og:description" content="Oops! The page you're looking for doesn't exist. Return to Fusion Network's homepage to continue exploring our Minecraft server.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/404">
+    <meta property="twitter:title" content="Page Not Found | Fusion Network">
+    <meta property="twitter:description" content="Oops! The page you're looking for doesn't exist. Return to Fusion Network's homepage to continue exploring our Minecraft server.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/public/images/logo.webp" alt="Logo">
+            <span class="logo-text">
+                <span class="fusion">Fusion</span>
+                <span class="network">Network</span>
+            </span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> HOME</a>
+            <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+            <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-trigger">
+                    <i class="fas fa-user-shield"></i> STAFF
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="#apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                    <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+                </div>
+            </div>
+            <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+            <% if (user) { %>
+                <div class="user-profile">
+                    <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                    <div class="dropdown-content">
+                        <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+            <% } %>
+            <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+        </div>
+    </nav>
+
+    <main class="error-container">
+        <div class="error-content">
+            <div class="error-logo">
+                <img src="/public/images/logo.webp" alt="Fusion Network Logo" class="floating">
+            </div>
+            <h1 class="glitch" data-text="404">404</h1>
+            <h2>Page Not Found</h2>
+            <p>Oops! The page you're looking for doesn't exist, or has gotten removed.</p>
+            <div class="error-actions">
+                <a href="/" class="home-button">
+                    <i class="fas fa-home"></i>
+                    Return Home
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+      
+        document.querySelectorAll('.nav-links a').forEach((link, index) => {
+            link.style.setProperty('--index', index);
+        });
+    </script>
+    <script src="/public/js/mobile-nav.js"></script>
+</body>
+</html> 

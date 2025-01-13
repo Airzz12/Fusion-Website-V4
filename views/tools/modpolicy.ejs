@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mod Policy | Fusion Network</title>
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/tools.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header></header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="tools-hero">
+        <div class="tools-hero-content">
+            <h1>Mod Policy</h1>
+            <p>Guidelines for allowed and prohibited modifications</p>
+        </div>
+    </section>
+
+    <div class="tools-container">
+        <div class="policy-content">
+            <div class="policy-nav">
+                <a href="/" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+
+            <section class="policy-section">
+                <h2><i class="fas fa-ban"></i> Prohibited Mods</h2>
+                <ul class="mod-list prohibited">
+                    <li><strong>X-Ray Mods</strong> - Mods that allow players to see through blocks or locate specific resources are strictly prohibited.</li>
+                    <li><strong>Elytra Chestplate Swapper</strong> - Mods that automate equipment swapping, particularly for Elytra and Chestplates, are forbidden.</li>
+                    <li><strong>Tweakaroo</strong> - The Tweakaroo mod and its features are not permitted on our server.</li>
+                    <li><strong>Mouse Tweaks</strong> - Mods that enhance mouse functionality beyond vanilla capabilities are not allowed.</li>
+                    <li><strong>Accurate Block Placement</strong> - Mods that provide enhanced accuracy for block placement beyond vanilla mechanics are prohibited.</li>
+                    <li><strong>All Crystal Optimizers (except Marlows)</strong> - Crystal optimization mods are prohibited, with the exception of Marlows' optimizer.</li>
+                    <li><strong>Freecam</strong> - Mods that allow players to detach their camera from their character are prohibited.</li>
+                    <li><strong>Auto Totem</strong> - Mods that automatically equip Totems of Undying are prohibited.</li>
+                    <li><strong>Macros</strong> - Any form of macro or automated key pressing/clicking is strictly forbidden.</li>
+                    <li><strong>Inventory Tweaks (with automation)</strong> - Inventory management mods that provide automation features are prohibited.</li>
+                    <li><strong>Auto Clicker</strong> - Mods or software that automates clicking or actions are not allowed.</li>
+                    <li><strong>Hack Clients</strong> - All hack clients or mods that provide unfair combat advantages are strictly prohibited.</li>
+                    <li><strong>Fast Clicks</strong> - Mods that automate or speed up clicking beyond normal limits are prohibited.</li>
+                    <li><strong>Minimap (with advanced features)</strong> - Minimaps with features such as entity radar or underground cave system views are prohibited.</li>
+                </ul>
+            </section>
+
+            <section class="policy-section">
+                <h2><i class="fas fa-check-circle"></i> Allowed Mods</h2>
+                <ul class="mod-list allowed">
+                    <li><strong>All FPS Boosting Mods</strong> - Any mod that enhances FPS and optimizes performance is allowed.</li>
+                    <li><strong>Marlows' Crystal Optimizer</strong> - Marlows' specific crystal optimization mod is allowed.</li>
+                </ul>
+            </section>
+
+            <section class="policy-section">
+                <h2><i class="fas fa-shield-alt"></i> Prohibited Clients</h2>
+                <div class="clients-box">
+                    <p>All hack or cheat clients, including but not limited to:</p>
+                    <div class="client-list">
+                        <span class="client-tag">Wurst Client</span>
+                        <span class="client-tag">Impact</span>
+                        <span class="client-tag">Aristois</span>
+                        <span class="client-tag">Sigma</span>
+                        <span class="client-tag">LiquidBounce</span>
+                        <span class="client-tag">Inertia</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="policy-section warning">
+                <h2><i class="fas fa-exclamation-triangle"></i> Policy on Mod Violations</h2>
+                <div class="warning-box">
+                    <p class="warning-text">Warning: Zero Tolerance Policy</p>
+                    <p>Violations of the mod rules will result in immediate penalties without warnings.</p>
+                    <div class="penalties-grid">
+                        <div class="penalty-item">
+                            <i class="fas fa-ban"></i>
+                            <p>30-day temporary ban</p>
+                        </div>
+                        <div class="penalty-item">
+                            <i class="fas fa-user-slash"></i>
+                            <p>Service blacklisting</p>
+                        </div>
+                        <div class="penalty-item">
+                            <i class="fas fa-list-alt"></i>
+                            <p>Public ban listing</p>
+                        </div>
+                        <div class="penalty-item">
+                            <i class="fas fa-user-times"></i>
+                            <p>Staff app disqualification</p>
+                        </div>
+                    </div>
+                    <p class="notice">Advanced detection methods are used to monitor compliance. Any use of prohibited mods or clients will result in severe consequences. If you are unsure about a mod, consult a staff member beforehand.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+</body>
+</html> 

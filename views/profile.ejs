@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+ <!-- Primary Meta Tags -->
+    <title>Profile | Fusion Network</title>
+    <meta name="title" content="Profile | Fusion Network">
+    <meta name="description" content="View and manage your Fusion Network profile, check application status, and customize your account settings.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/profile">
+    <meta property="og:title" content="Profile | Fusion Network">
+    <meta property="og:description" content="View and manage your Fusion Network profile, check application status, and customize your account settings.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+   
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/profile">
+    <meta property="twitter:title" content="Profile | Fusion Network">
+    <meta property="twitter:description" content="View and manage your Fusion Network profile, check application status, and customize your account settings.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/public/images/logo.webp" alt="Logo">
+            <span class="logo-text">
+                <span class="fusion">Fusion</span>
+                <span class="network">Network</span>
+            </span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> HOME</a>
+            <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+            <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+            <div class="dropdown">
+                <a href="/" class="dropdown-trigger">
+                    <i class="fas fa-user-shield"></i> STAFF
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                    <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                </div>
+            </div>
+            <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+            <% if (user) { %>
+                <div class="user-profile">
+                    <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                    <div class="dropdown-content">
+                        <a href="/profile" class="active"><i class="fas fa-user"></i> Profile</a>
+                        <% if (user.rank === 'admin') { %>
+                            <a href="/admin"><i class="fas fa-cog"></i> Admin Panel</a>
+                        <% } %>
+                        <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+            <% } %>
+            <button class="cta-button">fusion-network.xyz</button>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-banner" style="background-image: url('/public/images/userbanner.webp');">
+            <div class="profile-info">
+                <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="profile-avatar">
+                <div class="user-header">
+                    <span class="rank rank-<%= user.rank.toLowerCase() %>"><%= user.rank %></span>
+                    <h1><%= user.username %></h1>
+                    <h2 class="minecraft-username"><%= user.minecraft_username || 'No Minecraft Account Linked' %></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2>Account Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Username:</span>
+                        <span class="info-value"><%= user.username %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Rank:</span>
+                        <span class="info-value rank-text rank-<%= user.rank.toLowerCase() %>"><%= user.rank %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Minecraft Username:</span>
+                        <span class="info-value"><%= user.minecraft_username || 'Not linked' %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Member Since:</span>
+                        <span class="info-value"><%= new Date(user.created_at).toLocaleDateString() %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-user-shield"></i> Application Status:</span>
+                        <% if (!user.application_status) { %>
+                            <span class="status-text no-application">
+                                <strong>Not applied yet</strong> - <a href="/staff/apply">apply here</a>
+                            </span>
+                        <% } else { %>
+                            <span class="status-text <%= user.application_status.toLowerCase() %>">
+                                <strong>
+                                    <% if (user.application_status === 'pending') { %>
+                                        Pending Review
+                                    <% } else if (user.application_status === 'accepted') { %>
+                                        Accepted! Welcome to the team!
+                                    <% } else if (user.application_status === 'rejected') { %>
+                                        Application Rejected
+                                    <% } %>
+                                </strong>
+                            </span>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>User Actions</h2>
+                <div class="actions-grid">
+                    <div class="action-item">
+                        <button id="change-username-btn" onclick="showUsernameModal()">
+                            <i class="fas fa-user-edit"></i>
+                            Change Username
+                        </button>
+                    </div>
+                    <div class="action-item">
+                        <button id="link-minecraft-btn" onclick="showMinecraftModal()">
+                            <i class="fas fa-gamepad"></i>
+                            <%= user.minecraft_username ? 'Update Minecraft Account' : 'Link Minecraft Account' %>
+                        </button>
+                    </div>
+                    <% if (user.rank === 'admin') { %>
+                    <div class="action-item">
+                        <a href="/admin" class="admin-panel-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            Admin Panel
+                        </a>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="usernameModal">
+        <div class="modal">
+            <h2>Change Username</h2>
+            <p class="modal-description">Choose a new username for your account.</p>
+            <form id="username-form">
+                <input type="text" id="new-username" name="new-username" placeholder="New username" required>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeUsernameModal()">Cancel</button>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="minecraftModal">
+        <div class="modal">
+            <h2>Link Minecraft Account</h2>
+            <p class="modal-description">Enter your Minecraft username to link your account.</p>
+            <form id="minecraft-form">
+                <input type="text" id="minecraft-username" name="minecraft-username" placeholder="Minecraft username" required>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeMinecraftModal()">Cancel</button>
+                    <button type="submit">Link Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/profile.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+    <script>
+    async function handleLogout(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+    </script>
+</body>
+</html> 

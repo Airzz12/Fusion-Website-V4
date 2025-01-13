@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Fusion Network</title>
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/public/images/logo.webp" alt="Logo">
+            <span class="logo-text">
+                <span class="fusion">Fusion</span>
+                <span class="network">Network</span>
+            </span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> HOME</a>
+            <% if (user) { %>
+                <div class="user-profile">
+                    <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                    <div class="dropdown-content">
+                        <% if (user.username === 'Admin') { %>
+                            <a href="/admin" class="active"><i class="fas fa-shield-alt"></i> Admin Panel</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <% } else { %>
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <% } %>
+                    </div>
+                </div>
+            <% } else { %>
+                <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+            <% } %>
+            <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-banner" style="background-image: url('/public/images/userbanner.webp');">
+            <div class="profile-info">
+                <img src="https://mc-heads.net/avatar/Steve" alt="Admin" class="profile-avatar">
+                <h1>Admin Panel</h1>
+                <p class="admin-title">Fusion Network Administration</p>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2>Administrative Tools</h2>
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <i class="fas fa-users"></i>
+                        <h3>User Management</h3>
+                        <p>Total Users: <%= stats.userCount %></p>
+                        <button onclick="showUserManagement()">Manage Users</button>
+                    </div>
+                    <div class="admin-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Staff Applications</h3>
+                        <p>Manage Staff Applications</p>
+                        <button onclick="showApplicationControl()">Application Panel</button>
+                    </div>
+                    <div class="admin-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security</h3>
+                        <p>Security Settings & Logs</p>
+                        <button onclick="showSecurityPanel()">Security Panel</button>
+                    </div>
+                    <div class="admin-card">
+                        <i class="fas fa-cog"></i>
+                        <h3>Site Settings</h3>
+                        <p>Website Configuration</p>
+                        <button onclick="showSiteSettings()">Settings Panel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+    <script src="/public/js/admin.js"></script>
+
+    <script>
+    async function handleLogout(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+    </script>
+
+   
+    <div class="modal-overlay" id="userManagementModal">
+        <div class="modal">
+            <h2><i class="fas fa-users"></i> User Management</h2>
+            <div class="modal-content">
+                <div class="modal-buttons">
+                    <button onclick="showPromoteModal()">
+                        <i class="fas fa-arrow-up"></i>
+                        Promote User
+                    </button>
+                    <button onclick="showDemoteModal()">
+                        <i class="fas fa-arrow-down"></i>
+                        Demote User
+                    </button>
+                    <button onclick="showResetPasswordModal()">
+                        <i class="fas fa-key"></i>
+                        Reset Password
+                    </button>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeUserManagement()">
+                    <i class="fas fa-times"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="promoteModal">
+        <div class="modal">
+            <h2>Promote User</h2>
+            <form id="promote-form">
+                <input type="text" id="promote-username" placeholder="Enter username" required>
+                <select id="promote-rank" required>
+                    <option value="">Select new rank</option>
+                    <option value="helper">Helper</option>
+                    <option value="mod">Moderator</option>
+                    <option value="admin">Administrator</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="submit">
+                        <i class="fas fa-check"></i>
+                        Promote
+                    </button>
+                    <button type="button" onclick="closePromoteModal()" class="cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   
+    <div class="modal-overlay" id="demoteModal">
+        <div class="modal">
+            <h2>Demote User</h2>
+            <form id="demote-form">
+                <input type="text" id="demote-username" placeholder="Enter username" required>
+                <select id="demote-rank" required>
+                    <option value="">Select new rank</option>
+                    <option value="member">Member</option>
+                    <option value="helper">Helper</option>
+                    <option value="mod">Moderator</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="submit">
+                        <i class="fas fa-check"></i>
+                        Demote
+                    </button>
+                    <button type="button" onclick="closeDemoteModal()" class="cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="resetPasswordModal">
+        <div class="modal">
+            <h2>Reset User Password</h2>
+            <form id="reset-password-form">
+                <input type="text" id="reset-username" placeholder="Enter username" required>
+                <input type="password" id="new-password" placeholder="Enter new password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm new password" required>
+                <div class="modal-buttons">
+                    <button type="submit">
+                        <i class="fas fa-check"></i>
+                        Reset Password
+                    </button>
+                    <button type="button" onclick="closeResetPasswordModal()" class="cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="applicationControlModal">
+        <div class="modal">
+            <h2><i class="fas fa-user-shield"></i> Staff Applications</h2>
+            <div class="modal-content">
+                <div class="application-controls">
+                    <button onclick="toggleApplications('close')" class="app-control-btn close">
+                        <i class="fas fa-lock"></i>
+                        <span>Close Applications</span>
+                    </button>
+                    <button onclick="toggleApplications('open')" class="app-control-btn open">
+                        <i class="fas fa-lock-open"></i>
+                        <span>Open Applications</span>
+                    </button>
+                    <button onclick="viewApplications()" class="app-control-btn view">
+                        <i class="fas fa-eye"></i>
+                        <span>View Applications</span>
+                    </button>
+                    <button onclick="resetApplications()" class="app-control-btn reset">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Reset Applications</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="closeApplicationControl()" class="cancel-btn">
+                    <i class="fas fa-times"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="siteSettingsModal">
+        <div class="modal">
+            <h2><i class="fas fa-cog"></i> Website Settings</h2>
+            <div class="modal-content">
+                <div class="settings-grid">
+                    <div class="settings-section">
+                        <h3><i class="fas fa-palette"></i> Theme Settings</h3>
+                        <div class="setting-item">
+                            <label>Primary Color</label>
+                            <input type="color" id="primaryColor" value="#8B5CF6">
+                        </div>
+                        <div class="setting-item">
+                            <label>Dark Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="darkMode" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-globe"></i> Site Information</h3>
+                        <div class="setting-item">
+                            <label>Site Name</label>
+                            <input type="text" id="siteName" value="Fusion Network">
+                        </div>
+                        <div class="setting-item">
+                            <label>Site Description</label>
+                            <textarea id="siteDescription">The ultimate Minecraft community.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
+                        <div class="setting-item">
+                            <label>Maintenance Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="maintenanceMode">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Registration</label>
+                            <label class="switch">
+                                <input type="checkbox" id="allowRegistration" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="saveSiteSettings()" class="save-btn">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+                <button onclick="closeSiteSettings()" class="cancel-btn">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

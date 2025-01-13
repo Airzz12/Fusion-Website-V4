@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Register | Fusion Network</title>
+    <meta name="title" content="Register | Fusion Network">
+    <meta name="description" content="Create your Fusion Network account to join our Minecraft community. Get access to exclusive features, events, and connect with other players.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/register">
+    <meta property="og:title" content="Register | Fusion Network">
+    <meta property="og:description" content="Create your Fusion Network account to join our Minecraft community. Get access to exclusive features, events, and connect with other players.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/register">
+    <meta property="twitter:title" content="Register | Fusion Network">
+    <meta property="twitter:description" content="Create your Fusion Network account to join our Minecraft community. Get access to exclusive features, events, and connect with other players.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="public/images/logo.webp" alt="Logo">
+            <span class="logo-text">
+                <span class="fusion">Fusion</span>
+                <span class="network">Network</span>
+            </span>
+        </div>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> HOME</a>
+            <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+            <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+            <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+            <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+        </div>
+    </nav>
+
+    <main class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join our community today</p>
+            </div>
+            <% if (locals.error) { %>
+                <div class="error-message">
+                    <%= error %>
+                </div>
+            <% } %>
+            <form class="auth-form" action="/api/auth/register" method="POST" onsubmit="return handleRegister(event)">
+                <div class="form-group">
+                    <label for="minecraft-username">
+                        <i class="fas fa-gamepad"></i>
+                        Minecraft Username
+                    </label>
+                    <input type="text" id="minecraft-username" name="minecraft-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+        </div>
+    </main>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+    <script>
+    async function handleRegister(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = {
+            'minecraft-username': form['minecraft-username'].value.trim(),
+            'username': form.username.value.trim(),
+            'password': form.password.value.trim()
+        };
+
+    
+        const existingError = document.querySelector('.error-message');
+        if (existingError) existingError.remove();
+
+        // Validate fields
+        if (!formData.username || !formData.password || !formData['minecraft-username']) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'Please fill in all fields';
+            form.insertBefore(errorDiv, form.firstChild);
+            return false;
+        }
+
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = data.error || 'Registration failed';
+                form.insertBefore(errorDiv, form.firstChild);
+                return false;
+            }
+
+            if (data.success && data.redirect) {
+                window.location.href = data.redirect;
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'Registration failed. Please try again.';
+            form.insertBefore(errorDiv, form.firstChild);
+        }
+        return false;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Fusion Network | Minecraft Server</title>
+    <meta name="title" content="Fusion Network | Minecraft Server">
+    <meta name="description" content="Join Fusion Network, a unique Minecraft server featuring custom game modes, events, and an amazing community. Play now at fusion-network.xyz">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz">
+    <meta property="og:title" content="Fusion Network | Minecraft Server">
+    <meta property="og:description" content="Join Fusion Network, a unique Minecraft server featuring custom game modes, events, and an amazing community. Play now at fusion-network.xyz">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz">
+    <meta property="twitter:title" content="Fusion Network | Minecraft Server">
+    <meta property="twitter:description" content="Join Fusion Network, a unique Minecraft server featuring custom game modes, events, and an amazing community. Play now at fusion-network.xyz">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class="active"><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>1.21 | Open Beta</h2>
+            <h1>A brand new<br>PvP experience</h1>
+            <button class="join-button" onclick="showJoinModal()">Join Now</button>
+        </div>
+        <div class="hero-status">
+            <div id="server-status" class="status-widget" onclick="copyToClipboard('fusion-network.xyz')">
+                <svg class="minecraft-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M4 2H20V20H4V2ZM6 4V18H18V4H6ZM8 6H16V16H8V6Z" fill="currentColor"/>
+                </svg>
+                <div class="status-info">
+                    <div class="status-header">
+                        <span class="status-label">Server Status</span>
+                        <span class="status-text">Loading...</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div id="player-count" class="copy-content">
+                        <span class="count-text">-</span>
+                        <span class="copy-text">Click to copy IP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="discord-status" class="status-widget" onclick="window.open('https://discord.gg/fusion-network-893030510073348146', '_blank')">
+                <svg class="discord-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z" fill="currentColor"/>
+                </svg>
+                <div class="status-info">
+                    <div class="status-header">
+                        <span class="status-label">Discord Members</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    <div class="copy-content">
+                        <span class="discord-count-text">-</span>
+                        <span class="copy-text">Click to join server</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news">
+        <div class="section-header">
+            <h2>Latest Updates</h2>
+            <p>Stay informed about our newest features and changes</p>
+        </div>
+        
+        <div class="news-content">
+            <div class="news-text">
+                <h3 class="highlight">Season 9 Has Dropped!</h3>
+                <p class="news-description">PvP has received a major overhaul with exciting new mechanics and balance changes. The Lifesteal system has also been completely revamped, offering a fresh and thrilling combat experience. Jump in now to discover all the new features!</p>
+                <div class="news-meta">
+                    <span class="update-date">Update Jan 4, 2025</span>
+                    <a href="/news/1" class="read-more">READ MORE <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="news-image">
+                <img src="public/images/news/season9.png" alt="Season 9 Update">
+            </div>
+        </div>
+        <div class="view-all-container">
+            <a href="/news" class="view-all-news">
+                <span>View All News</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="cosmetics">
+        <div class="cosmetics-content">
+            <div class="cosmetics-image">
+                <img src="public/images/ranksbanner.png" alt="Server Ranks">
+            </div>
+            <div class="cosmetics-text">
+                <div class="cosmetics-tag">Server Ranks</div>
+                <p class="subtitle">Enhance your gameplay experience!</p>
+                <p class="description">Unlock powerful perks and exclusive features with our premium ranks.<br>Get access to special commands, unique abilities, and more!<br>Support the server while gaining amazing benefits -<br>choose the rank that suits your playstyle!</p>
+                <button class="learn-more" onclick="window.open('https://store.fusion-network.xyz/', '_blank')">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+                    </svg>
+                    Visit Store
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="discord">
+        <div class="discord-content">
+            <div class="discord-image">
+                <img src="public/images/discordbanner.png" alt="Discord Character">
+            </div>
+            <div class="discord-text">
+                <div class="discord-tag">The Discord Server</div>
+                <p class="subtitle">Join our Discord for announcements and updates!</p>
+                <p class="description">Join our community and connect with other players!<br>Receive immediate updates for news, get help and dedicated support,<br>and link your Minecraft account to access even more features on the server!</p>
+                <button class="discord-button" onclick="window.open('https://discord.gg/jRQ8M2cUcE', '_blank')">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z" fill="currentColor"/>
+                    </svg>
+                    Join our Discord
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <p>Fusion Network is a top-tier Asian Minecraft server supporting offline (cracked) play for versions 1.9 and above.<br>Featuring game modes like Lifesteal SMP and Practice PvP, plus duels, kits, economy, and leaderboards.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <a href="/">Home</a>
+                    <a href="/news">News</a>
+                    <a href="/forums">Forums</a>
+                    <a href="https://store.fusion-network.xyz/">Store</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <a href="#rules">Rules</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                </div>  
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <a href="https://discord.gg/jRQ8M2cUcE">Contact Us</a>
+                    <a href="https://discord.gg/jRQ8M2cUcE">Support</a>
+                    <div class="social-links">
+                        <a href="https://discord.gg/jRQ8M2cUcE" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.youtube.com/@FusionNetworkMC" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#instagram" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 fusion-network.xyz. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="public/js/index.js"></script>
+    <script>
+    async function logout(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+    </script>
+
+    <script>
+    async function handleLogout(e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.reload(); // This will refresh the page
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+    </script>
+        <script src="/public/js/mobile-nav.js"></script>
+
+    <div class="toast-notification" id="copyToast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span>Server IP copied to clipboard!</span>
+        </div>
+    </div>
+
+    <div class="join-modal-overlay">
+        <div class="join-modal">
+            <button class="close-join-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="join-modal-content">
+                <img src="public/images/logo.webp" alt="Logo" class="modal-logo">
+                <h2>How to Join</h2>
+                <div class="join-steps">
+                    <div class="join-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Copy the Server IP</h3>
+                            <p>Click to copy: <button class="copy-ip" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button></p>
+                        </div>
+                    </div>
+                    <div class="join-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Open Minecraft</h3>
+                            <p>Launch Minecraft Java Edition 1.21</p>
+                        </div>
+                    </div>
+                    <div class="join-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Add the Server</h3>
+                            <p>Click 'Multiplayer' → 'Add Server' and paste the IP</p>
+                        </div>
+                    </div>
+                    <div class="join-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Choose Account Type</h3>
+                            <div class="account-types">
+                                <div class="account-type">
+                                    <i class="fas fa-user"></i>
+                                    <h4>Cracked</h4>
+                                    <p>Play without a premium account</p>
+                                </div>
+                                <div class="account-type">
+                                    <i class="fas fa-crown"></i>
+                                    <h4>Premium</h4>
+                                    <p>Play with your Minecraft account</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

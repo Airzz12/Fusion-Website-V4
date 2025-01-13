@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Minecraft Scanner | Fusion Network</title>
+    <meta name="title" content="Minecraft Scanner | Fusion Network">
+    <meta name="description" content="Download our official Minecraft Scanner tool. Fast, secure, and lightweight scanner to ensure fair play on Fusion Network.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/tools/scanner">
+    <meta property="og:title" content="Minecraft Scanner | Fusion Network">
+    <meta property="og:description" content="Download our official Minecraft Scanner tool. Fast, secure, and lightweight scanner to ensure fair play on Fusion Network.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/tools/scanner">
+    <meta property="twitter:title" content="Minecraft Scanner | Fusion Network">
+    <meta property="twitter:description" content="Download our official Minecraft Scanner tool. Fast, secure, and lightweight scanner to ensure fair play on Fusion Network.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/tools.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header></header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="#team"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="tools-hero">
+        <div class="tools-hero-content">
+            <h1>Minecraft Scanner</h1>
+            <p>Download our official scanner tool</p>
+        </div>
+    </section>
+
+    <div class="tools-container">
+        <div class="scanner-content">
+            <div class="policy-nav">
+                <a href="/" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+
+            <div class="scanner-box">
+                <div class="scanner-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Fusion Network Scanner</h2>
+                <p class="scanner-description">Our official scanner tool helps ensure fair play by detecting prohibited modifications. Download and run it before joining the server.</p>
+                
+                <div class="scanner-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Fast & Lightweight</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Safe & Secure</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Quick Scan</span>
+                    </div>
+                </div>
+
+                <a href="/tools/download/minecrafthackscanner.exe" class="download-button">
+                    <i class="fas fa-download"></i>
+                    Download Scanner
+                    <span class="version">v1.0.0</span>
+                </a>
+
+                <div class="scanner-info">
+                    <div class="info-item">
+                        <i class="fas fa-file"></i>
+                        <span>File Size: 17.4 MB</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-windows"></i>
+                        <span>Windows 10/11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+</body>
+</html> 

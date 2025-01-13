@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Server Guide | Fusion Network</title>
+    <meta name="title" content="Server Guide | Fusion Network">
+    <meta name="description" content="Learn how to play on Fusion Network with our comprehensive server guide. Explore game modes, features, and everything you need to know to get started.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/guide">
+    <meta property="og:title" content="Server Guide | Fusion Network">
+    <meta property="og:description" content="Learn how to play on Fusion Network with our comprehensive server guide. Explore game modes, features, and everything you need to know to get started.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/guide">
+    <meta property="twitter:title" content="Server Guide | Fusion Network">
+    <meta property="twitter:description" content="Learn how to play on Fusion Network with our comprehensive server guide. Explore game modes, features, and everything you need to know to get started.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/guide.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="public/images/logo.webp" alt="Logo">
+                <span class="logo-text">
+                    <span class="fusion">Fusion</span>
+                    <span class="network">Network</span>
+                </span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/" class=""><i class="fas fa-home"></i> HOME</a>
+                <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+                <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-trigger">
+                        <i class="fas fa-user-shield"></i> STAFF
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                        <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                    </div>
+                </div>
+                <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+                <% if (user) { %>
+                    <div class="user-profile">
+                        <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+                <% } %>
+                <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="guide-hero">
+        <div class="guide-hero-content">
+            <h1>Server Guide</h1>
+            <p>Explore our unique gamemodes and learn how to play</p>
+        </div>
+    </section>
+
+    <section class="gamemodes">
+        <div class="section-header">
+            <h2>Explore our Gamemodes</h2>
+            <p>Choose your preferred gamemode and start your journey</p>
+        </div>
+
+        <div class="gamemodes-grid">
+            <% gamemodes.forEach(mode => { %>
+                <div class="gamemode-card">
+                    <div class="gamemode-banner">
+                        <img src="<%= mode.banner %>" alt="<%= mode.name %>">
+                    </div>
+                    <div class="gamemode-content">
+                        <div class="gamemode-header">
+                            <div class="gamemode-icon">
+                                <img src="<%= mode.icon %>" alt="<%= mode.name %> Icon">
+                            </div>
+                            <h3><%= mode.name %></h3>
+                        </div>
+                        <p><%= mode.description %></p>
+                        <a href="/guide/<%= mode.id %>" class="learn-more-btn">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </section>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+</body>
+</html> 

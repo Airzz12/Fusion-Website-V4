@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>News & Updates | Fusion Network</title>
+    <meta name="title" content="News & Updates | Fusion Network">
+    <meta name="description" content="Stay up to date with the latest news, updates, and announcements from Fusion Network. Get information about new features, events, and server changes.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/news">
+    <meta property="og:title" content="News & Updates | Fusion Network">
+    <meta property="og:description" content="Stay up to date with the latest news, updates, and announcements from Fusion Network. Get information about new features, events, and server changes.">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/news">
+    <meta property="twitter:title" content="News & Updates | Fusion Network">
+    <meta property="twitter:description" content="Stay up to date with the latest news, updates, and announcements from Fusion Network. Get information about new features, events, and server changes.">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/news.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/public/images/logo.webp" alt="Logo">
+            <span class="logo-text">
+                <span class="fusion">Fusion</span>
+                <span class="network">Network</span>
+            </span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> HOME</a>
+            <a href="/news" class="active"><i class="fas fa-newspaper"></i> NEWS</a>
+            <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-trigger">
+                    <i class="fas fa-user-shield"></i> STAFF
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                    <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+                </div>
+            </div>
+            <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+            <% if (user) { %>
+                <div class="user-profile">
+                    <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                    <div class="dropdown-content">
+                        <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+            <% } %>
+            <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+        </div>
+    </nav>
+
+    <div class="news-container">
+        <div class="news-header">
+            <h1>Latest Updates</h1>
+            <p>Stay informed about our newest features and changes</p>
+        </div>
+
+        <div class="news-grid">
+            <% news.forEach((item, index) => { %>
+                <div class="news-item">
+                    <div class="news-image">
+                        <a href="/news/<%= item.id %>">
+                            <img src="<%= item.image %>" alt="<%= item.title %>">
+                            <div class="news-category"><%= item.category %></div>
+                        </a>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar"></i> <%= item.date %></span>
+                            <span class="news-author"><i class="far fa-user"></i> <%= item.author %></span>
+                        </div>
+                        <a href="/news/<%= item.id %>" class="news-title">
+                            <h2><%= item.title %></h2>
+                        </a>
+                        <p><%= item.description %></p>
+                        <a href="/news/<%= item.id %>" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+
+
+
+        <div class="load-more-container">
+            <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+        </div>
+    </div>
+
+    <script src="/public/js/index.js"></script>
+    <script src="/public/js/mobile-nav.js"></script>
+    <script src="/public/js/news.js"></script>
+</body>
+</html> 
