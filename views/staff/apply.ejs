@@ -59,84 +59,82 @@
     </header>
 
     <div class="application-container">
-        <% if (user) { %>
-            <% if (!isOpen) { %>
-                <div class="applications-closed animate-fade-in">
-                    <i class="fas fa-lock"></i>
-                    <h2>Applications Closed</h2>
-                    <p>Staff applications are currently closed. Please check back later!</p>
-                </div>
-            <% } else if (hasExistingApplication) { %>
-                <div class="application-exists animate-fade-in">
-                    <i class="fas fa-info-circle"></i>
-                    <h2>Application Already Submitted</h2>
-                    <p>You have already submitted a staff application. Please wait for a response on <a href="/profile">your profilepage</a>.</p>
-                </div>
-            <% } else { %>
-                <div class="application-form-container animate-fade-in">
-                    <div class="form-header">
-                        <i class="fas fa-user-shield"></i>
-                        <h2>Staff Application</h2>
-                        <p>Join our team and help make Fusion Network even better!</p>
-                    </div>
-                    
-                    <form id="applicationForm" class="animate-fade-in">
-                        <div class="form-group">
-                            <label>
-                                <i class="fas fa-user"></i>
-                                In-Game & Discord Information
-                            </label>
-                            <textarea name="inGameName" placeholder="What's your in-game name and discord username? (Format: MCName, DiscordName#0000)" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <i class="fas fa-heart"></i>
-                                Motivation
-                            </label>
-                            <textarea name="why" placeholder="Why do you want to work with us?" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <i class="fas fa-shield-alt"></i>
-                                Scenario Response
-                            </label>
-                            <textarea name="scenario" placeholder="What would you do if you had a suspicion of someone cheating, and other people are also reporting it?" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <i class="fas fa-clock"></i>
-                                Availability
-                            </label>
-                            <textarea name="availability" placeholder="How many hours can you be online per day?" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>
-                                <i class="fas fa-briefcase"></i>
-                                Previous Experience
-                            </label>
-                            <textarea name="experience" placeholder="Do you have any previous experience? If yes, please describe where and what role." required></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-button">
-                            <i class="fas fa-paper-plane"></i>
-                            Submit Application
-                        </button>
-                    </form>
-                </div>
-            <% } %>
-        <% } else { %>
-            <div class="login-prompt animate-fade-in">
-                <i class="fas fa-lock"></i>
+        <% if (!user) { %>
+            <div class="login-required animate-fade-in">
+                <i class="fas fa-user-lock"></i>
                 <h2>Login Required</h2>
-                <p>Please login to submit a staff application</p>
+                <p>Please log in to apply for staff positions.</p>
                 <a href="/login" class="login-button">
                     <i class="fas fa-sign-in-alt"></i>
                     Login Now
                 </a>
+            </div>
+        <% } else if (!isOpen) { %>
+            <div class="applications-closed animate-fade-in">
+                <i class="fas fa-lock"></i>
+                <h2>Applications Closed</h2>
+                <p>Staff applications are currently closed. Please check back later!</p>
+            </div>
+        <% } else if (hasExistingApplication) { %>
+            <div class="application-exists animate-fade-in">
+                <i class="fas fa-info-circle"></i>
+                <h2>Application Already Submitted</h2>
+                <p>You have already submitted a staff application. Please wait for a response on <a href="/profile">your profilepage</a>.</p>
+            </div>
+        <% } else { %>
+            <div class="application-form-container animate-fade-in">
+                <div class="form-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h2>Staff Application</h2>
+                    <p>Join our team and help make Fusion Network even better!</p>
+                </div>
+                
+                <form id="applicationForm" class="animate-fade-in">
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-user"></i>
+                            In-Game & Discord Information
+                        </label>
+                        <textarea name="inGameName" placeholder="What's your in-game name and discord username? (Format: MCName, DiscordName#0000)" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-heart"></i>
+                            Motivation
+                        </label>
+                        <textarea name="why" placeholder="Why do you want to work with us?" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-shield-alt"></i>
+                            Scenario Response
+                        </label>
+                        <textarea name="scenario" placeholder="What would you do if you had a suspicion of someone cheating, and other people are also reporting it?" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-clock"></i>
+                            Availability
+                        </label>
+                        <textarea name="availability" placeholder="How many hours can you be online per day?" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-briefcase"></i>
+                            Previous Experience
+                        </label>
+                        <textarea name="experience" placeholder="Do you have any previous experience? If yes, please describe where and what role." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Application
+                    </button>
+                </form>
             </div>
         <% } %>
     </div>
