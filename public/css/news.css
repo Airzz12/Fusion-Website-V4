@@ -225,7 +225,7 @@
     transform: translateY(0);
 }
 
-/* Update grid to handle more items */
+
 .news-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -235,7 +235,7 @@
     padding: 0 2rem;
 }
 
-/* Update animation delays for additional items */
+
 .news-item:nth-child(n+5) { 
     animation-delay: 0.5s; 
 }
@@ -282,4 +282,128 @@
     color: #aaa;
     font-size: 0.9rem;
     margin-top: 0.5rem;
+}
+
+/* Mobile Optimization for News Page */
+@media (max-width: 768px) {
+    .news-container {
+        padding: 6rem 1rem 2rem;
+    }
+
+    .news-header {
+        margin-bottom: 2rem;
+    }
+
+    .news-header h1 {
+        font-size: 2rem;
+    }
+
+    .news-header p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .news-item {
+        margin-bottom: 1rem;
+    }
+
+    .news-image {
+        height: 200px;
+    }
+
+    .news-category {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .news-content {
+        gap: 0.5rem;
+    }
+
+    .news-meta {
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .news-meta span {
+        flex: 0 0 auto;
+    }
+
+    .news-title h2 {
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+
+    .news-item p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        -webkit-line-clamp: 3;
+    }
+
+    .read-more {
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+    }
+
+    .load-more-container {
+        margin-top: 2rem;
+    }
+
+    .load-more-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Additional Small Screen Optimizations */
+@media (max-width: 480px) {
+    .news-container {
+        padding: 5rem 0.75rem 1.5rem;
+    }
+
+    .news-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .news-image {
+        height: 180px;
+    }
+
+    .news-meta {
+        font-size: 0.8rem;
+    }
+
+    .news-title h2 {
+        font-size: 1.2rem;
+    }
+
+    .news-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 0.75rem;
+    }
+
+    .news-image {
+        margin: -0.75rem -0.75rem 0.75rem;
+        border-radius: 12px 12px 0 0;
+    }
+}
+
+/* Improve Animation Performance */
+@media (prefers-reduced-motion: reduce) {
+    .news-item {
+        animation: none;
+    }
+
+    .load-more-container {
+        animation: none;
+    }
 } 
