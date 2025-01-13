@@ -9,6 +9,7 @@ router.get('/apply', async (req, res) => {
             return res.render('staff/apply', { 
                 user: null,
                 isOpen: false,
+                hasExistingApplication: false,
                 error: 'Please log in to apply for staff positions.'
             });
         }
@@ -24,7 +25,7 @@ router.get('/apply', async (req, res) => {
         res.render('staff/apply', {
             user: req.session.user,
             isOpen,
-            existingApplication
+            hasExistingApplication: !!existingApplication
         });
     } catch (error) {
         console.error('Staff application route error:', error);
