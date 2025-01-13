@@ -3,31 +3,31 @@ const router = express.Router();
 const { getDb } = require('../database');
 const auth = require('../middleware/auth');
 
-router.get('/apply', auth, async (req, res) => {
+router.get('/apply', async (req, res) => {
     try {
-        const db = getDb();
-        
-        const status = await db.get('SELECT is_open FROM application_status LIMIT 1');
-        const isOpen = status ? status.is_open : true;
-
-
-        let hasExistingApplication = false;
-        if (isOpen) {
-            const existingApplication = await db.get(
-                'SELECT * FROM staff_applications WHERE user_id = ?',
-                [req.user.id]
-            );
-            hasExistingApplication = !!existingApplication;
+        if (!req.session.user) {
+            return res.render('staff/apply', { 
+                user: null,
+                isOpen: false,
+                error: 'Please log in to apply for staff positions.'
+            });
         }
 
-        res.render('staff/apply', { 
-            user: req.user,
-            hasExistingApplication,
+        const db = await getDb();
+        const existingApplication = await db.get(
+            'SELECT * FROM staff_applications WHERE user_id = ? AND status IS NULL',
+            [req.session.user.id]
+        );
+
+        const isOpen = true;
+
+        res.render('staff/apply', {
+            user: req.session.user,
             isOpen,
-            currentPage: 'apply'
+            existingApplication
         });
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Staff application route error:', error);
         res.status(500).send('Server error');
     }
 });
