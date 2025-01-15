@@ -1,4 +1,4 @@
-// Modal functions for user management
+
 function showPromoteModal() {
     const modal = document.getElementById('promoteModal');
     if (modal) {
@@ -81,7 +81,7 @@ function closeApplicationControl() {
 }
 
 function viewApplications() {
-    // Redirect to applications page
+   
     window.location.href = '/staff/applications';
 }
 
@@ -135,15 +135,15 @@ function showNotification(type, message) {
     `;
     document.body.appendChild(notification);
 
-    // Remove notification after 3 seconds
+   
     setTimeout(() => {
         notification.remove();
     }, 3000);
 }
 
-// Add form submission handlers
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Promote form handler
+
     const promoteForm = document.getElementById('promote-form');
     if (promoteForm) {
         promoteForm.addEventListener('submit', async (e) => {
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.success) {
                     showNotification('success', data.message);
                     closePromoteModal();
-                    // Clear form
+                 
                     promoteForm.reset();
                 } else {
                     showNotification('error', data.error || 'Failed to promote user');
@@ -182,7 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Demote form handler
+
+
     const demoteForm = document.getElementById('demote-form');
     if (demoteForm) {
         demoteForm.addEventListener('submit', async (e) => {
@@ -209,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.success) {
                     showNotification('success', data.message);
                     closeDemoteModal();
-                    // Clear form
+                   
                     demoteForm.reset();
                 } else {
                     showNotification('error', data.error || 'Failed to demote user');
@@ -221,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Reset password form handler
+    
     const resetPasswordForm = document.getElementById('reset-password-form');
     if (resetPasswordForm) {
         resetPasswordForm.addEventListener('submit', async (e) => {
@@ -254,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.success) {
                     showNotification('success', data.message);
                     closeResetPasswordModal();
-                    // Clear form
+                   
                     resetPasswordForm.reset();
                 } else {
                     showNotification('error', data.error || 'Failed to reset password');
@@ -312,23 +313,30 @@ function closeSiteSettings() {
 }
 
 async function saveSiteSettings() {
+    const maintenanceMode = document.getElementById('maintenanceMode').checked;
+    
     try {
-        const settings = {
-            primaryColor: document.getElementById('primaryColor').value,
-            darkMode: document.getElementById('darkMode').checked,
-            siteName: document.getElementById('siteName').value,
-            siteDescription: document.getElementById('siteDescription').value,
-            maintenanceMode: document.getElementById('maintenanceMode').checked,
-            allowRegistration: document.getElementById('allowRegistration').checked
-        };
+        const response = await fetch('/admin/site-settings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                maintenanceMode
+            })
+        });
 
-        showNotification('success', 'Settings saved successfully');
-        setTimeout(() => {
+        if (response.ok) {
+            alert('Settings saved successfully!');
             closeSiteSettings();
-        }, 1500);
+        
+            window.location.reload();
+        } else {
+            alert('Failed to save settings');
+        }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('error', 'Failed to save settings');
+        console.error('Error saving settings:', error);
+        alert('Error saving settings');
     }
 }
 
