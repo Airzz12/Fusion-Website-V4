@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const { getDb } = require('../database');
 const bcrypt = require('bcrypt');
 
-// Store maintenance mode state (in a real application, this should be in a database)
+
 let maintenanceMode = false;
 
 
