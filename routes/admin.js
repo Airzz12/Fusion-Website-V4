@@ -5,6 +5,53 @@ const auth = require('../middleware/auth');
 const { getDb } = require('../database');
 const bcrypt = require('bcrypt');
 
+// Store maintenance mode state (in a real application, this should be in a database)
+let maintenanceMode = false;
+
+
+const checkMaintenance = (req, res, next) => {
+    const allowedPaths = [
+        '/admin',
+        '/api/admin',
+        '/public',
+        '/login',
+        '/register',
+        '/api/auth/login',
+        '/api/auth/register'
+    ];
+
+    // Check if user is admin
+    const isAdmin = req.session.user && (req.session.user.username === 'Admin' || req.session.user.rank === 'Admin');
+
+    // If user is admin, allow access to all pages
+    if (isAdmin) {
+        return next();
+    }
+
+    // Check if the current path is allowed
+    const isAllowedPath = allowedPaths.some(path => req.path.startsWith(path));
+
+    if (maintenanceMode && !isAllowedPath) {
+        // If user tries to access any other URL during maintenance
+        if (req.xhr || req.headers.accept?.includes('application/json')) {
+            // For API requests
+            return res.status(503).json({ 
+                error: 'Site is under maintenance' 
+            });
+        }
+        // For regular page requests
+        return res.render('maintenance', { 
+            user: req.session.user || null,
+            maintenanceMode: true
+        });
+    }
+    next();
+};
+
+
+const isInMaintenance = () => maintenanceMode;
+
+
 router.get('/', [auth, admin], async (req, res) => {
     try {
         if (!req.user || req.user.username !== 'Admin') {
@@ -18,7 +65,8 @@ router.get('/', [auth, admin], async (req, res) => {
         res.render('admin', { 
             user: req.user,
             stats,
-            currentPage: 'admin'
+            currentPage: 'admin',
+            maintenanceMode
         });
     } catch (error) {
         console.error('Admin panel error:', error);
@@ -140,4 +188,20 @@ router.post('/reset-password', [auth, admin], async (req, res) => {
     }
 });
 
-module.exports = router; 
+// Site settings endpoint
+router.post('/site-settings', [auth, admin], async (req, res) => {
+    try {
+        const { maintenanceMode: newMaintenanceMode } = req.body;
+        maintenanceMode = newMaintenanceMode;
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update settings' });
+    }
+});
+
+// Export both the router and the middleware
+module.exports = {
+    router,
+    checkMaintenance,
+    isInMaintenance
+}; 
