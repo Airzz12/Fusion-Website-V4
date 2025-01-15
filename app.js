@@ -7,11 +7,11 @@ const app = express();
 const { initializeDb } = require('./database');
 const SQLiteStore = require('connect-sqlite3')(session);
 const fs = require('fs');
+const { router: adminRouter, checkMaintenance } = require('./routes/admin');
 
 
 const authRouter = require('./routes/auth');
 const forumsRouter = require('./routes/forums');
-const adminRouter = require('./routes/admin');
 const profileRouter = require('./routes/profile');
 const newsRouter = require('./routes/news');
 const guideRouter = require('./routes/guide');
@@ -77,7 +77,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
+
+app.use(checkMaintenance);
+
 app.use('/api/auth', authRouter);
 app.use('/forums', forumsRouter);
 app.use('/admin', adminRouter);
