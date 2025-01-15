@@ -1,4 +1,3 @@
-
 function showPromoteModal() {
     const modal = document.getElementById('promoteModal');
     if (modal) {
