@@ -77,9 +77,10 @@ app.use((req, res, next) => {
     next();
 });
 
-
+// Add maintenance check middleware BEFORE routes
 app.use(checkMaintenance);
 
+// Routes
 app.use('/api/auth', authRouter);
 app.use('/forums', forumsRouter);
 app.use('/admin', adminRouter);
