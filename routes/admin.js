@@ -54,7 +54,7 @@ const isInMaintenance = () => maintenanceMode;
 
 router.get('/', [auth, admin], async (req, res) => {
     try {
-        if (!req.user || req.user.username !== 'Admin') {
+        if (!req.user || req.user.rank.toLowerCase() !== 'admin') {
             console.log('Unauthorized access attempt to admin panel');
             return res.redirect('/');
         }
