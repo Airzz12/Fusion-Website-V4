@@ -1,0 +1,45 @@
+<nav class="navbar">
+    <div class="logo">
+        <img src="/public/images/logo.webp" alt="Logo">
+        <span class="logo-text">
+            <span class="fusion">Fusion</span>
+            <span class="network">Network</span>
+        </span>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="nav-links">
+        <a href="/"><i class="fas fa-home"></i> HOME</a>
+        <a href="/news"><i class="fas fa-newspaper"></i> NEWS</a>
+        <a href="/forums"><i class="fas fa-comments"></i> FORUMS</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+                <i class="fas fa-user-shield"></i> STAFF
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href="/staff/apply"><i class="fas fa-file-alt"></i> Apply for Staff</a>
+                <a href="/staff/ourstaff"><i class="fas fa-users"></i> Our Team</a>
+            </div>
+        </div>
+        <a href="https://store.fusion-network.xyz/"><i class="fas fa-shopping-cart"></i> STORE</a>
+        <% if (user) { %>
+            <div class="user-profile">
+                <img src="<%= user.minecraft_username ? `https://mc-heads.net/avatar/${user.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" alt="<%= user.username %>" class="avatar">
+                <div class="dropdown-content">
+                    <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+                    <% if (user.rank === 'admin') { %>
+                        <a href="/admin"><i class="fas fa-cog"></i> Admin Panel</a>
+                    <% } %>
+                    <a href="#" onclick="handleLogout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        <% } else { %>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+        <% } %>
+        <button class="cta-button" onclick="copyToClipboard('fusion-network.xyz')">fusion-network.xyz</button>
+    </div>
+</nav> 
