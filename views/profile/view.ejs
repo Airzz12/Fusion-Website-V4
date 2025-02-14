@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title><%= title %></title>
+    <meta name="title" content="<%= title %>">
+    <meta name="description" content="<%= description %>">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fusion-network.xyz/profile/<%= profileUser.username %>">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fusion-network.xyz/profile/<%= profileUser.username %>">
+    <meta property="twitter:title" content="<%= title %>">
+    <meta property="twitter:description" content="<%= description %>">
+    <meta property="twitter:image" content="https://fusion-network.xyz/public/images/banner.webp">
+
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="profile-container">
+        <div class="profile-banner" style="background-image: url('/public/images/userbanner.webp');">
+            <div class="profile-info">
+                <img src="<%= profileUser.minecraft_username ? `https://mc-heads.net/avatar/${profileUser.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" 
+                     alt="<%= profileUser.username %>" 
+                     class="profile-avatar">
+                <div class="user-header">
+                    <span class="rank rank-<%= profileUser.rank.toLowerCase() %>"><%= profileUser.rank %></span>
+                    <h1><%= profileUser.username %></h1>
+                    <h2 class="minecraft-username"><%= profileUser.minecraft_username || 'No Minecraft Account Linked' %></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2>Account Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Username:</span>
+                        <span class="info-value"><%= profileUser.username %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Rank:</span>
+                        <span class="info-value rank-text rank-<%= profileUser.rank.toLowerCase() %>"><%= profileUser.rank %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Minecraft Username:</span>
+                        <span class="info-value"><%= profileUser.minecraft_username || 'Not linked' %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Member Since:</span>
+                        <span class="info-value"><%= new Date(profileUser.created_at).toLocaleDateString() %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/main.js"></script>
+</body>
+</html> 

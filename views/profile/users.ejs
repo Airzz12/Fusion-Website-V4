@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="profile-container">
+        <div class="profile-banner" style="background-image: url('/public/images/userbanner.webp');">
+            <div class="profile-info">
+                <img src="/public/images/logo.webp" alt="Users" class="profile-avatar">
+                <div class="user-header">
+                    <h1>Registered Users</h1>
+                    <p class="subtitle">All members of Fusion Network</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="users-grid">
+                <% users.forEach(function(userItem) { %>
+                    <a href="/profile/<%= userItem.username %>" class="user-card">
+                        <img src="<%= userItem.minecraft_username ? `https://mc-heads.net/avatar/${userItem.minecraft_username}` : 'https://mc-heads.net/avatar/Steve' %>" 
+                             alt="<%= userItem.username %>" 
+                             class="user-avatar">
+                        <div class="user-info">
+                            <span class="rank rank-<%= userItem.rank.toLowerCase() %>"><%= userItem.rank %></span>
+                            <h3><%= userItem.username %></h3>
+                        </div>
+                    </a>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/main.js"></script>
+</body>
+</html> 

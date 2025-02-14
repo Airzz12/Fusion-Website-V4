@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Not Found | Fusion Network</title>
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.webp">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="profile-container">
+        <div class="profile-banner" style="background-image: url('/public/images/userbanner.webp');">
+            <div class="profile-info">
+                <img src="https://mc-heads.net/avatar/Steve" alt="Not Found" class="profile-avatar">
+                <div class="user-header">
+                    <h1>User Not Found</h1>
+                    <h2 class="minecraft-username">The requested profile does not exist</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <div class="error-message">
+                    <i class="fas fa-user-slash"></i>
+                    <h2>Profile Not Found</h2>
+                    <p>Sorry, we couldn't find a user with the username "<%= username %>"</p>
+                    <div class="error-buttons">
+                        <a href="/" class="error-button"><i class="fas fa-home"></i> Return Home</a>
+                        <a href="/profile/users/all" class="error-button secondary"><i class="fas fa-users"></i> View All Users</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/main.js"></script>
+</body>
+</html> 
