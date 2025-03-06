@@ -741,4 +741,127 @@
     color: var(--text-gray);
     font-size: 1.1rem;
     margin-top: 0.5rem;
+}
+
+/* Danger Zone Styles */
+.danger-zone {
+    border: 1px solid #dc2626;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.danger-zone h2 {
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.danger-content {
+    padding: 1rem 0;
+}
+
+.danger-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(220, 38, 38, 0.1);
+    border-radius: 6px;
+}
+
+.danger-info h3 {
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+}
+
+.danger-info p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.danger-button {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.danger-button:hover {
+    background: #b91c1c;
+}
+
+/* Delete Modal Styles */
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.delete-modal-content {
+    background: var(--secondary-dark);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+}
+
+.delete-modal-content h2 {
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.delete-modal-content p {
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.cancel-button {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.confirm-delete-button {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-button:hover {
+    background: #374151;
+}
+
+.confirm-delete-button:hover {
+    background: #b91c1c;
 } 
