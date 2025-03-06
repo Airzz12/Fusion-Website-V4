@@ -91,4 +91,27 @@ router.get('/users/all', async (req, res) => {
     }
 });
 
+// Add this route to handle account deletion
+router.delete('/delete', async (req, res) => {
+    try {
+        const db = await getDb();
+        const userId = req.session.user.id;
+
+        // Delete the user from the database
+        await db.run('DELETE FROM users WHERE id = ?', [userId]);
+
+        // Clear the session
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Session destruction error:', err);
+                return res.status(500).json({ error: 'Failed to logout' });
+            }
+            res.json({ success: true });
+        });
+    } catch (error) {
+        console.error('Account deletion error:', error);
+        res.status(500).json({ error: 'Failed to delete account' });
+    }
+});
+
 module.exports = router; 
