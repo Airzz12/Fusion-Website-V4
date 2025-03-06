@@ -155,6 +155,21 @@
                     <% } %>
                 </div>
             </div>
+
+            <div class="profile-section danger-zone">
+                <h2><i class="fas fa-exclamation-triangle"></i> Danger Zone</h2>
+                <div class="danger-content">
+                    <div class="danger-action">
+                        <div class="danger-info">
+                            <h3>Delete Account</h3>
+                            <p>Once you delete your account, there is no going back. Please be certain.</p>
+                        </div>
+                        <button onclick="confirmDelete()" class="danger-button">
+                            <i class="fas fa-trash-alt"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -189,6 +204,7 @@
     </div>
 
     <script src="/public/js/index.js"></script>
+    <script src="/public/js/main.js"></script>
     <script src="/public/js/profile.js"></script>
     <script src="/public/js/mobile-nav.js"></script>
     <script>
