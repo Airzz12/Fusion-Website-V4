@@ -3,6 +3,51 @@ const router = express.Router();
 
 const newsItems = [
     {
+        id: 2,
+        title: "Duels Release",
+        category: "Feature",
+        date: "Feb 19, 2025",
+        author: "Airzz",
+        description: "Challenge your friends in epic 1v1 battles with our new Duels system!",
+        image: "/public/images/news/duelsrelease.png",
+        content: `
+            <p>We're thrilled to announce the official release of our highly anticipated Duels system! Get ready to showcase your PvP skills in intense 1v1 battles across various custom-designed arenas.</p>
+            
+            <h2>🎮 Features</h2>
+            <ul>
+                <li>Multiple game modes including Classic, UHC, and Bridge duels</li>
+                <li>Custom-designed arenas for each mode</li>
+                <li>Real-time leaderboards and statistics</li>
+                <li>Competitive ranking system</li>
+                <li>Challenge specific players or join the queue</li>
+            </ul>
+
+            <h2>🏆 Ranking System</h2>
+            <p>Compete in ranked matches to climb the leaderboards! Our ELO-based ranking system ensures fair matchmaking and competitive gameplay. Start at Bronze and work your way up to the prestigious Diamond rank!</p>
+
+            <h2>🎯 How to Play</h2>
+            <ol>
+                <li>Join the server at <strong>fusion-network.xyz</strong></li>
+                <li>Type <code>/duel</code> to open the duels menu</li>
+                <li>Select your preferred game mode</li>
+                <li>Challenge a specific player or join the queue</li>
+                <li>Battle it out and claim victory!</li>
+            </ol>
+
+            <h2>🎉 Launch Event</h2>
+            <p>Join us this weekend for our special launch event featuring:</p>
+            <ul>
+                <li>Double XP for all duels</li>
+                <li>Special titles for top performers</li>
+                <li>Exclusive cosmetic rewards</li>
+            </ul>
+
+            <div class="article-cta">
+                <p>Ready to prove your skills? Join now at <strong>fusion-network.xyz</strong> and become the ultimate duelist!</p>
+            </div>
+        `
+    },
+    {
         id: 1,
         title: "Season 9 Has Dropped!",
         category: "Update",
